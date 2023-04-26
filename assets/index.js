@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const checkValidity = (input) => {
   const parentElement = input.parentElement;
   const spanChildElement = parentElement.children[parentElement.children.length - 1];
-  
+
   // separate check for input zip code because input validity pattern mismatch does not work.
   // Input zip code uses text but the pattern regex takes in numbers as digits, not string digits.
   if (input.id === 'zipcode') {
@@ -38,6 +38,26 @@ const checkValidity = (input) => {
     const regex = new RegExp('^[0-9]{5}(?:-[0-9]{4})?$');
     if (!regex.test(input.value)) {
       spanChildElement.innerHTML = 'Error: Input does not match pattern: xxxxx or xxxxx-xxxx';
+      spanChildElement.classList.add('active');
+    } else {
+      spanChildElement.innerHTML = '';
+      spanChildElement.classList.remove('active');
+    }
+    return;
+  }
+
+  // Separate check for password input.
+  if (input.id === 'password') {
+    checkPasswordValidity();
+    return;
+  }
+
+  // Separate check if password confirmation matches password.
+  if (input.id === 'password-confirmation' && checkPasswordValidity()) {
+    const password = document.getElementById('password').value;
+
+    if (input.value !== password) {
+      spanChildElement.innerHTML = 'Error: Passwords do not match.';
       spanChildElement.classList.add('active');
     } else {
       spanChildElement.innerHTML = '';
@@ -63,4 +83,35 @@ const checkValidity = (input) => {
     spanChildElement.innerHTML = '';
     spanChildElement.classList.remove('active');
   }
+};
+
+
+const checkPasswordValidity = () => {
+  const spanPasswordError = document.getElementById('error-password');
+  const divPasswordRequirement = document.getElementById('password-requirements');
+
+  const password = document.getElementById('password').value;
+  if (password.length < 8) {
+    spanPasswordError.innerHTML = 'Error: Password not longer than 8 characters';
+    spanPasswordError.classList.add('active');
+    divPasswordRequirement.classList.remove('hide');
+    return false;
+  }
+
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasNumbers = /\d/.test(password);
+  const hasNonalphas = /\W/.test(password);
+  if (hasUpperCase + hasLowerCase + hasNumbers + hasNonalphas < 3) {
+    console.log('invalid');
+    spanPasswordError.innerHTML = 'Error: Password does not meet requirements.';
+    spanPasswordError.classList.add('active');
+    divPasswordRequirement.classList.remove('hide');
+    return false;
+  }
+
+  spanPasswordError.innerHTML = '';
+  spanPasswordError.classList.remove('active');
+  divPasswordRequirement.classList.add('hide');
+  return true;
 };
