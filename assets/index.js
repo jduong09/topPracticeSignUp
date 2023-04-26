@@ -30,16 +30,36 @@ document.addEventListener('DOMContentLoaded', () => {
 const checkValidity = (input) => {
   const parentElement = input.parentElement;
   const spanChildElement = parentElement.children[parentElement.children.length - 1];
+  
+  // separate check for input zip code because input validity pattern mismatch does not work.
+  // Input zip code uses text but the pattern regex takes in numbers as digits, not string digits.
+  if (input.id === 'zipcode') {
+    console.log(input.id);
+    const regex = new RegExp('^[0-9]{5}(?:-[0-9]{4})?$');
+    if (!regex.test(input.value)) {
+      spanChildElement.innerHTML = 'Error: Input does not match pattern: xxxxx or xxxxx-xxxx';
+      spanChildElement.classList.add('active');
+    } else {
+      spanChildElement.innerHTML = '';
+      spanChildElement.classList.remove('active');
+    }
+    return;
+  }
 
-  console.log(input.validity);
-  // Required input that is empty.
+  // Input that is required and is missing.
   if (input.validity.valueMissing) {
     spanChildElement.innerHTML = 'Error: Input is missing.';
     spanChildElement.classList.add('active');
   } else if (input.validity.typeMismatch) {
+    // Input that does not match email format.
     spanChildElement.innerHTML = 'Error: Invalid email format ex: xxx@email.com';
     spanChildElement.classList.add('active');
+  } else if (input.validity.tooLong) {
+    // Input that is longer than maxLength attribute.
+    spanChildElement.innerHTML = `Error: Input is ${input.value.length} characters. Should be ${input.max} characters.`;
+    spanChildElement.classList.add('active');
   } else {
+    // Valid input, remove error message.
     spanChildElement.innerHTML = '';
     spanChildElement.classList.remove('active');
   }
