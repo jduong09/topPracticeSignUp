@@ -5,9 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
   formNewUser.addEventListener('submit', (e) => {
     e.preventDefault();
     // index 0 - 4 are elements that need to be validated. 5th/last one is submit button.
-
-    console.log(formElements);
-
     for (let i = 0; i < 5; i++) {
       if (!formElements[i].validity.valid) {
         return false;
@@ -34,7 +31,6 @@ const checkValidity = (input) => {
   // separate check for input zip code because input validity pattern mismatch does not work.
   // Input zip code uses text but the pattern regex takes in numbers as digits, not string digits.
   if (input.id === 'zipcode') {
-    console.log(input.id);
     const regex = new RegExp('^[0-9]{5}(?:-[0-9]{4})?$');
     if (!regex.test(input.value)) {
       spanChildElement.innerHTML = 'Error: Input does not match pattern: xxxxx or xxxxx-xxxx';
@@ -103,7 +99,6 @@ const checkPasswordValidity = () => {
   const hasNumbers = /\d/.test(password);
   const hasNonalphas = /\W/.test(password);
   if (hasUpperCase + hasLowerCase + hasNumbers + hasNonalphas < 3) {
-    console.log('invalid');
     spanPasswordError.innerHTML = 'Error: Password does not meet requirements.';
     spanPasswordError.classList.add('active');
     divPasswordRequirement.classList.remove('hide');
