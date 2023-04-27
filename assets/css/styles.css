@@ -6,7 +6,7 @@ main {
   margin: 1rem auto;
 }
 
-h1, h2, label, span.active {
+h1, h2, label, span.active, #btn-submit {
   font-weight: 700;
 }
 
@@ -67,7 +67,14 @@ span.active {
   padding: .5rem 1rem;
   margin: 0 auto;
   border: 2px solid hsl(302, 59%, 65%);
+  color: hsl(302, 59%, 65%);
   border-radius: 4px;
+}
+
+#btn-submit:hover {
+  cursor: pointer;
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(302, 59%, 65%);
 }
 
 #password-requirements > ul {
