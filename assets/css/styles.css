@@ -2,28 +2,78 @@
   display: none !important;
 }
 
+main {
+  margin: 1rem auto;
+}
+
+h1, h2, label, span.active {
+  font-weight: 700;
+}
+
 h1 {
   margin-bottom: 2rem;
-  font-size: 2rem;
-  font-weight: 700;
+  text-align: center;
+  color: hsl(302, 59%, 65%);
+  font-size: 2.5rem;
+}
+
+#div-form {
+  width: 80%;
+  padding: 1rem;
+  margin: 0 auto;
+  border: 2px solid hsl(302, 59%, 65%);
 }
 
 form > p {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 1rem;
 }
 
-label {
-  font-weight: 700;
+label, #password-requirements {
+  font-size: 1.15rem;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    border: 2px solid hsl(0, 0%, 0%);
+}
+
+input, select {
+  border: 2px solid hsl(0, 0%, 0%);
+  padding: .5rem;
+}
+
+input:active, input:focus, select:active, select:focus {
+  border: 2px solid hsl(302, 59%, 65%);
+}
+
+input.error {
+  border-color: hsl(0, 100%, 50%);
 }
 
 span.active {
   display: block;
   margin-top: .5rem;
-  color: red;
+  color: hsl(0, 100%, 50%);
 }
 
 #btn-submit {
+  width: fit-content;
+  display: block;
   padding: .5rem 1rem;
-  border: 2px solid orangered;
-  border-radius: 4px;;
+  margin: 0 auto;
+  border: 2px solid hsl(302, 59%, 65%);
+  border-radius: 4px;
+}
+
+#password-requirements > ul {
+  list-style: disc;
+}
+
+#password-requirements > ul > li {
+  margin-left: 2rem;
 }

@@ -20,6 +20,10 @@ time, mark, audio, video {
 	box-sizing: border-box;
 }
 
+input, select {
+	outline: none;
+}
+
 button {
 	background: none;
 	border: 0;
